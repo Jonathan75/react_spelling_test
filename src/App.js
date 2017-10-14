@@ -5,27 +5,22 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wordList: [],
-      newWordValue: ''
+      wordList: []
     }
     this.addWord = this.addWord.bind(this);
   }
 
   addWord = (e) => {
+    e.preventDefault()
     debugger
-    e.preventDefault();
-    this.setState({wordList: this.state.wordList.concat(this.state.newWordValue)})
-  }
-
-  captureNewWordValue = (e) => {
-    this.setState({newWordValue: e.target.value});
+    this.setState({wordList: this.state.wordList.concat(e.target.elements["word"].value)})
   }
 
   render() {
     return (
       <div>
         <form onSubmit={this.addWord}>
-          <input onChange={this.captureNewWordValue}></input>
+          <input id="word"></input>
           <button>Add word</button>
         </form>
       </div>
