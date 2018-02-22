@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import WordList from './components/WordList'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       wordList: []
     }
@@ -12,7 +13,6 @@ class App extends Component {
 
   addWord = (e) => {
     e.preventDefault()
-    debugger
     this.setState({wordList: this.state.wordList.concat(e.target.elements["word"].value)})
   }
 
@@ -23,9 +23,10 @@ class App extends Component {
           <input id="word"></input>
           <button>Add word</button>
         </form>
+        <WordList wordList={this.state.wordList} />
       </div>
     );
   }
 }
 
-export default App;
+export default App
