@@ -6,12 +6,16 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      wordList: JSON.parse(localStorage.getItem("wordList") || "[]")
+      wordList: []
     }
     this.addWord = this.addWord.bind(this);
   }
 
-  storWordList = (wordList) => {
+  componentDidMount() {
+    this.setState({wordList: JSON.parse(localStorage.getItem("wordList") || "[]")})
+  }
+
+  storeWordList = (wordList) => {
     localStorage.setItem("wordList", JSON.stringify(wordList))
   }
 
@@ -19,7 +23,7 @@ class App extends Component {
     e.preventDefault()
     const updatedWordList = this.state.wordList.concat(e.target.elements["word"].value)
     this.setState({wordList: updatedWordList})
-    this.storWordList(updatedWordList)
+    this.storeWordList(updatedWordList)
   }
 
   render() {
