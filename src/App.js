@@ -11,9 +11,20 @@ class App extends Component {
     this.addWord = this.addWord.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({wordList: JSON.parse(localStorage.getItem("wordList") || "[]")})
+  }
+
+  storeWordList = (wordList) => {
+    localStorage.setItem("wordList", JSON.stringify(wordList))
+  }
+
   addWord = (e) => {
     e.preventDefault()
-    this.setState({wordList: this.state.wordList.concat(e.target.elements["word"].value)})
+    this.setState(
+      {wordList: this.state.wordList.concat(e.target.elements["word"].value)},
+      () => {this.storeWordList(this.state.wordList)}
+    )
   }
 
   render() {

@@ -1,0 +1,182 @@
+<html>
+
+<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	wordList = [];
+
+  function speak(text) {
+    var u = new SpeechSynthesisUtterance();
+    u.text = text;
+    u.lang = 'en-US';
+    // u.voice = voice;
+    u.rate = 1.0;
+    u.pitch = 1.0;
+    u.volume = 1;
+    speechSynthesis.speak(u);
+  }
+
+
+  // $( document ).ready(function() {
+  //   var voices = speechSynthesis.getVoices();
+  //   for(var i = 10; i < 20; i++ ) {
+  //     //speak(voices[i].name, voices[i].name);
+  //     //console.log("Voice " + i.toString() + ' ' + voices[i].name + ' ' + voices[i].uri);
+  //     speak("test", voices[i]);
+  //     $('div').append( "<p>" + i + "</p>" );
+  //   }
+  // });
+
+  function deleteWord(word) {
+    delete wordlist[word];
+    saveWordList();
+  }
+
+  function add_word_keydown_event(event){
+    if (event.keyCode == 13) {
+      $('#add_word_button').click();
+      return false;
+    }
+  }
+
+  function addWordElement(word){
+    $('#wordlist').append("<li>" + word + "</li>");
+
+  }
+
+  function addWordAndSave(word){
+  	addWordElement(word)
+  	speak(word + ' added');
+  	wordList.push(word)
+  	saveWordList();
+    $('#addwordtext').val('');
+    $('#addwordtext').focus();
+  }
+
+  function spell_word(){
+    speak('spell ' + $('#test-word').val());
+  }
+
+  function next_word(){
+    if (wordList.length){
+      $('#test-word').val(wordList.shift());
+      $('#submitted-word').val('');
+      $('#submitted-word').focus();
+      spell_word();
+    }
+    else {
+      speak('Test Complete! Good Job!');
+      end_test();
+    }
+  }
+
+  function start_test(){
+    $('#wordlist li').each(function() {
+      wordList.push($(this).text());
+    });
+
+    $('#add-word-section').hide();
+    $('#test-section').show();
+    next_word();
+  }
+
+  function end_test(){
+    $('#add-word-section').show();
+    $('#test-section').hide();
+  }
+
+  function test_word_match(){
+    return test_word_value() === submitted_word();
+  }
+
+  function test_word_value(){
+    return $('#test-word').val().toLowerCase();
+  }
+
+  function submitted_word(){
+    return $('#submitted-word').val().toLowerCase();
+  }
+
+  function test_word(){
+    if (test_word_match()){
+        speak('correct');
+        next_word();
+    }
+    else
+    {
+      speak('incorrect');
+      spell_word();
+    }
+  }
+
+  var peekTimer = {};
+  function peekTimeout(){
+    $('#test-word').hide();
+    clearInterval(peekTimer);
+  }
+
+  function peek(){
+    $('#test-word').show();
+    peekTimer = setInterval(peekTimeout, 1000);
+  }
+
+  function hint(){
+    var word = test_word_value();
+    for (var i = 0, len = word.length; i < len; i++) {
+      // alert(word[i]);
+      speak(word[i]);
+    }
+  }
+
+  function submittedWordKeydownEvent(event){
+    if (event.keyCode == 13) {
+      $('#try-word').click();
+      return false;
+    }
+  }
+
+  function saveWordList(){
+    localStorage.setItem("wordList", JSON.stringify(wordList));
+  };
+
+  function loadWordList(){
+  	wordList.forEach(addWordElement)
+  }
+
+  $(document).ready(function(){
+		if (typeof(Storage) !== "undefined") {
+				var wordStorage  = localStorage.getItem("wordList") || [];
+		    wordList = JSON.parse(wordStorage);
+		} else {
+		    document.getElementById("body").innerHTML = "Sorry, your browser does not support Web Storage...";
+		}
+
+    loadWordList();
+  })
+</script>
+
+<body>
+    <h1>Spelling Test</h1>
+    <div id='add-word-section'>
+        <h3>Add word</h3>
+        <input type="text" id="addwordtext" onkeydown="add_word_keydown_event(event)"></input>
+        <button id='add_word_button' onclick="addWordAndSave($('#addwordtext').val())">add</button>
+        <ul id='wordlist'>
+        </ul>
+        <button id='start-test' onclick='start_test()'>Start Test</button>
+        <button id='speak' onclick="speak($('#textbox').val())">Speak</button>
+        <input type="text" id="textbox"></input>
+    </div>
+
+    <div id='test-section' style='display:none;'>
+        <h3>Test</h3>
+        <input  id='submitted-word' type='text' onkeydown="submittedWordKeydownEvent(event)"></input><br/ >
+        <input  id='test-word' type='text' value='blank' style='display:none;'></input><br/>
+        <button id='try-word' onClick='test_word()' >Submit</button><br/ >
+        <button id='peek' onClick='peek()'>Peek</button>
+        <button id='hint' onClick="hint()">Hint</button>
+    </div>
+
+</body>
+
+</html>
