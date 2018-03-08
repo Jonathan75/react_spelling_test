@@ -21,9 +21,10 @@ class App extends Component {
 
   addWord = (e) => {
     e.preventDefault()
-    const updatedWordList = this.state.wordList.concat(e.target.elements["word"].value)
-    this.setState({wordList: updatedWordList})
-    this.storeWordList(updatedWordList)
+    this.setState(
+      {wordList: this.state.wordList.concat(e.target.elements["word"].value)},
+      () => {this.storeWordList(this.state.wordList)}
+    )
   }
 
   render() {
