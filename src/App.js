@@ -27,6 +27,18 @@ class App extends Component {
     )
   }
 
+  speak = (text) => {
+    console.log('speaking', text)
+    var u = new SpeechSynthesisUtterance()
+    u.text = text
+    u.lang = 'en-US'
+    // u.voice = voice
+    u.rate = 1.0
+    u.pitch = 1.0
+    u.volume = 1
+    window.speechSynthesis.speak(u)
+  }
+
   render() {
     return (
       <div>
@@ -35,6 +47,7 @@ class App extends Component {
           <button>Add word</button>
         </form>
         <WordList wordList={this.state.wordList} />
+        <button onClick={() => this.speak('Testing 1,2,3')}>Audio Test</button>
       </div>
     );
   }
