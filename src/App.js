@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import './App.css'
-import WordList from './components/WordList'
+import QuizBuilder from './components/quizBuilder'
+
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isQuiz: false,
       wordList: []
     }
     this.addWord = this.addWord.bind(this);
@@ -27,27 +29,12 @@ class App extends Component {
     )
   }
 
-  speak = (text) => {
-    console.log('speaking', text)
-    var u = new SpeechSynthesisUtterance()
-    u.text = text
-    u.lang = 'en-US'
-    // u.voice = voice
-    u.rate = 1.0
-    u.pitch = 1.0
-    u.volume = 1
-    window.speechSynthesis.speak(u)
-  }
+
 
   render() {
     return (
       <div>
-        <form onSubmit={this.addWord}>
-          <input id="word"></input>
-          <button>Add word</button>
-        </form>
-        <WordList wordList={this.state.wordList} />
-        <button onClick={() => this.speak('Testing 1,2,3')}>Audio Test</button>
+        <QuizBuilder wordList={this.state.wordList} />
       </div>
     );
   }
