@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
 import QuizBuilder from './components/quizBuilder'
+import Quiz from './components/Quiz'
+
 
 class App extends Component {
   constructor(props) {
@@ -28,10 +30,11 @@ class App extends Component {
   }
 
   startQuiz = () => {this.setState({isQuiz: true})}
+  stopQuiz = () => {this.setState({isQuiz: false})}
 
   render() {
     const body = this.state.isQuiz ?
-        <div>Test Here</div> :
+        <Quiz stopQuiz={this.stopQuiz}/> :
         <QuizBuilder
           wordList={this.state.wordList}
           addWord={this.addWord}
