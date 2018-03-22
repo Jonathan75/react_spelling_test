@@ -27,20 +27,14 @@ class App extends Component {
     )
   }
 
-  // const Body = () => {
-  //   if (this.state.isQuiz) {
-  //     return <div>Test Here</div>
-  //   }
-  //
-  //   return <QuizBuilder wordList={this.state.wordList} addWord={this.addWord}/>
-  // }
-
-
   render() {
+    const body = this.state.isQuiz ?
+        <div>Test Here</div> :
+        <QuizBuilder wordList={this.state.wordList} addWord={this.addWord}/>
+
     return (
       <div>
-        //{Body}
-        <QuizBuilder wordList={this.state.wordList} addWord={this.addWord}/>
+        {body}
       </div>
     )
   }
