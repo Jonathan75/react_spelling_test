@@ -27,10 +27,16 @@ class App extends Component {
     )
   }
 
+  startQuiz = () => {this.setState({isQuiz: true})}
+
   render() {
     const body = this.state.isQuiz ?
         <div>Test Here</div> :
-        <QuizBuilder wordList={this.state.wordList} addWord={this.addWord}/>
+        <QuizBuilder
+          wordList={this.state.wordList}
+          addWord={this.addWord}
+          startQuiz={this.startQuiz}
+          />
 
     return (
       <div>
