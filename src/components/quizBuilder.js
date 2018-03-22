@@ -7,7 +7,7 @@ class QuizBuilder extends Component {
   render(){
     return(
       <div>
-        <form onSubmit={this.addWord}>
+        <form onSubmit={this.props.addWord}>
           <input id="word"></input>
           <button>Add word</button>
         </form>

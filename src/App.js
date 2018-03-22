@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './App.css'
 import QuizBuilder from './components/quizBuilder'
 
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -10,7 +9,6 @@ class App extends Component {
       isQuiz: false,
       wordList: []
     }
-    this.addWord = this.addWord.bind(this);
   }
 
   componentDidMount() {
@@ -29,14 +27,22 @@ class App extends Component {
     )
   }
 
+  // const Body = () => {
+  //   if (this.state.isQuiz) {
+  //     return <div>Test Here</div>
+  //   }
+  //
+  //   return <QuizBuilder wordList={this.state.wordList} addWord={this.addWord}/>
+  // }
 
 
   render() {
     return (
       <div>
-        <QuizBuilder wordList={this.state.wordList} />
+        //{Body}
+        <QuizBuilder wordList={this.state.wordList} addWord={this.addWord}/>
       </div>
-    );
+    )
   }
 }
 
