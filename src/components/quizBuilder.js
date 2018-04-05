@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import WordList from './wordList'
+import WordList from './WordList'
 import speak from '../lib/speak'
 
 class QuizBuilder extends Component {

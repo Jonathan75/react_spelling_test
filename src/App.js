@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import QuizBuilder from './components/quizBuilder'
+import QuizBuilder from './components/QuizBuilder'
 import Quiz from './components/Quiz'
 
 
