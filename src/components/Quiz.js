@@ -6,7 +6,7 @@ class Quiz extends Component {
   render(){
     return(
       <div>
-      <button onClick={this.props.stopQuiz}>Exit Test</button>
+        <button onClick={this.props.stopQuiz}>Exit Test</button>
       </div>
     )
   }
