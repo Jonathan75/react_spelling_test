@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
-import QuizBuilder from './components/QuizBuilder'
-import Quiz from './components/Quiz'
+import QuizBuilder from './components/quizBuilder'
+import Quiz from './components/quiz'
 import speak from './lib/speak'
 
 
@@ -45,22 +45,26 @@ class App extends Component {
     if (word === currentWord){
       speak('Correct')
       if (this.state.currentWordIndex -1 >= this.state.wordList.length ) {
-        
+        speak('Test complete')
+        this.setState({isQuiz: false})
       } else {
         const index = this.state.currentWordIndex + 1
-        cost newWord = this.state.wordList[next]        
+        const newWord = this.state.wordList[index]
       }
     }
   }
 
   render() {
     const body = this.state.isQuiz ?
-        <Quiz stopQuiz={this.stopQuiz} /> :
+        <Quiz
+          stopQuiz={this.stopQuiz}
+          evaluateWord = {this.evaluateWord}
+        /> :
         <QuizBuilder
           wordList={this.state.wordList}
           addWord={this.addWord}
           startQuiz={this.startQuiz}
-          />
+        />
 
     return (
       <div>
