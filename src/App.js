@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import QuizBuilder from './components/QuizBuilder'
 import Quiz from './components/Quiz'
+import speak from './lib/speak'
 
 
 class App extends Component {
@@ -9,7 +10,9 @@ class App extends Component {
     super(props)
     this.state = {
       isQuiz: false,
-      wordList: []
+      wordList: [],
+      currentWordIndex: 0,
+      currentWord: ''
     }
   }
 
@@ -29,12 +32,30 @@ class App extends Component {
     )
   }
 
-  startQuiz = () => {this.setState({isQuiz: true})}
+  startQuiz = () => {
+    const currentWord = this.state.wordList[this.state.currentWordIndex]
+    this.setState({isQuiz: true, currentWord: currentWord})
+    speak(`Spell ${currentWord}`)
+  }
+
   stopQuiz = () => {this.setState({isQuiz: false})}
+
+  evaluateWord = (word) => {
+    const currentWord = this.state.wordList[this.state.currentWordIndex]
+    if (word === currentWord){
+      speak('Correct')
+      if (this.state.currentWordIndex -1 >= this.state.wordList.length ) {
+        
+      } else {
+        const index = this.state.currentWordIndex + 1
+        cost newWord = this.state.wordList[next]        
+      }
+    }
+  }
 
   render() {
     const body = this.state.isQuiz ?
-        <Quiz stopQuiz={this.stopQuiz}/> :
+        <Quiz stopQuiz={this.stopQuiz} /> :
         <QuizBuilder
           wordList={this.state.wordList}
           addWord={this.addWord}
