@@ -3,12 +3,11 @@ import WordList from './wordList'
 import speak from '../lib/speak'
 
 class QuizBuilder extends Component {
-
   render(){
     return(
       <div>
         <form onSubmit={this.props.addWord}>
-          <input id="word"></input>
+          <input type="text" id="word" />
           <button>Add word</button>
         </form>
         <WordList wordList={this.props.wordList} />

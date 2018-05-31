@@ -43,13 +43,14 @@ class App extends Component {
   evaluateWord = (word) => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
     if (word === currentWord){
-      speak('Correct')
+      speak('Correct. Good job!')
       if (this.state.currentWordIndex -1 >= this.state.wordList.length ) {
         speak('Test complete')
         this.setState({isQuiz: false})
       } else {
         const index = this.state.currentWordIndex + 1
         const newWord = this.state.wordList[index]
+        this.setState({currentWordIndex: index, currentWord: newWord})
       }
     }
   }
