@@ -4,13 +4,14 @@ import speak from '../lib/speak'
 class Quiz extends Component {
   componentDidMount(){
      this.nameInput.focus()
-     // speak(`Spell ${this.state.currentWord}`)
   }
 
   onSubmitWord = (e) => {
     e.preventDefault()
     this.nameInput.focus();
-    this.props.evaluateWord(e.target.elements["word"].value)
+    if (this.props.evaluateWord(e.target.elements["word"].value)){
+      e.target.elements["word"].value = ''
+    }
   }
 
   render(){
