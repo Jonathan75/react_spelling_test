@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import speak from '../lib/speak'
 
 class Quiz extends Component {
   componentDidMount(){

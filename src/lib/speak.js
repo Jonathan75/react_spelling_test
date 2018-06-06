@@ -1,6 +1,6 @@
 const speak = (text) => {
 	console.log('speaking', text)
-	var u = new SpeechSynthesisUtterance()
+	const u = new SpeechSynthesisUtterance()
 	u.text = text
 	u.lang = 'en-US'
 	// u.voice = voice
