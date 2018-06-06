@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
 import './App.css'
-import WordList from './components/WordList'
+import QuizBuilder from './components/quizBuilder'
+import Quiz from './components/quiz'
+import speak from './lib/speak'
+
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      wordList: []
+      isQuiz: false,
+      wordList: [],
+      currentWordIndex: 0,
+      currentWord: ''
     }
-    this.addWord = this.addWord.bind(this);
+    this.evaluateWord = this.evaluateWord.bind(this)
   }
 
   componentDidMount() {
@@ -27,29 +33,51 @@ class App extends Component {
     )
   }
 
-  speak = (text) => {
-    console.log('speaking', text)
-    var u = new SpeechSynthesisUtterance()
-    u.text = text
-    u.lang = 'en-US'
-    // u.voice = voice
-    u.rate = 1.0
-    u.pitch = 1.0
-    u.volume = 1
-    window.speechSynthesis.speak(u)
+  startQuiz = () => {
+    const currentWord = this.state.wordList[this.state.currentWordIndex]
+    this.setState({isQuiz: true, currentWord: currentWord})
+    speak(`Spell ${currentWord}`)
+  }
+
+  stopQuiz = () => {this.setState({isQuiz: false})}
+
+  evaluateWord = (word) => {
+    const currentWord = this.state.wordList[this.state.currentWordIndex]
+    if (word === currentWord){
+      speak('Correct. Good job!')
+      if (this.state.currentWordIndex >= this.state.wordList.length -1) {
+        speak('Test complete')
+        this.setState({isQuiz: false})
+      } else {
+        const index = this.state.currentWordIndex + 1
+        const newWord = this.state.wordList[index]
+        speak(`Now spell ${newWord}`)
+        this.setState({currentWordIndex: index, currentWord: newWord})
+      }
+      return true;
+    } else {
+      speak(`Incorrect. Please spell, ${currentWord}`)
+      return false;
+    }
   }
 
   render() {
+    const body = this.state.isQuiz ?
+        <Quiz
+          stopQuiz={this.stopQuiz}
+          evaluateWord = {this.evaluateWord}
+        /> :
+        <QuizBuilder
+          wordList={this.state.wordList}
+          addWord={this.addWord}
+          startQuiz={this.startQuiz}
+        />
+
     return (
       <div>
-        <form onSubmit={this.addWord}>
-          <input id="word"></input>
-          <button>Add word</button>
-        </form>
-        <WordList wordList={this.state.wordList} />
-        <button onClick={() => this.speak('Testing 1,2,3')}>Audio Test</button>
+        {body}
       </div>
-    );
+    )
   }
 }
 
