@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "jest": "^23.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
@@ -18,5 +17,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "jest": { "roots": [ "<rootDir>/jest"]}
+  "jest": {
+    "roots": [
+      "<rootDir>/jest"
+    ]
+  }
 }
