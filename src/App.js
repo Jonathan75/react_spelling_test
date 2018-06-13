@@ -12,7 +12,9 @@ class App extends Component {
       isQuiz: false,
       wordList: [],
       currentWordIndex: 0,
-      currentWord: ''
+      currentWord: '',
+      incorrectAttemptCount: 0,
+      totalAttemptCount: 0
     }
     this.evaluateWord = this.evaluateWord.bind(this)
   }
@@ -43,6 +45,7 @@ class App extends Component {
 
   evaluateWord = (word) => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
+    this.setState({totalAttemptCount: this.state.totalAttemptCount + 1})
     if (word === currentWord){
       speak('Correct. Good job!')
       if (this.state.currentWordIndex >= this.state.wordList.length -1) {
@@ -56,6 +59,7 @@ class App extends Component {
       }
       return true;
     } else {
+      this.setState({incorrectAttemptCount: this.state.incorrectAttemptCount + 1})
       speak(`Incorrect. Please spell, ${currentWord}`)
       return false;
     }
