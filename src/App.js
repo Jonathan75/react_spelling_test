@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './App.css'
 import QuizBuilder from './components/quizBuilder'
 import Quiz from './components/quiz'
 import speak from './lib/speak'
