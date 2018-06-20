@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import QuizBuilder from './components/quizBuilder'
 import Quiz from './components/quiz'
 import speak from './lib/speak'
+import { compareWords } from './helper'
 
 
 class App extends Component {
@@ -42,7 +43,7 @@ class App extends Component {
 
   evaluateWord = (word) => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
-    if (word === currentWord){
+    if (compareWords(word, currentWord)){
       speak('Correct. Good job!')
       if (this.state.currentWordIndex >= this.state.wordList.length -1) {
         speak('Test complete')
@@ -55,7 +56,8 @@ class App extends Component {
       }
       return true;
     } else {
-      speak(`Incorrect. Please spell, ${currentWord}`)
+      speak(`Incorrect. Please spell`)
+      speak(currentWord, 0.1)
       return false;
     }
   }
