@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import './App.css'
 import QuizBuilder from './components/quizBuilder'
 import Quiz from './components/quiz'
 import speak from './lib/speak'
+import { compareWords } from './helper'
 
 
 class App extends Component {
@@ -39,15 +39,15 @@ class App extends Component {
     speak(`Spell ${currentWord}`)
   }
 
-  stopQuiz = () => {this.setState({isQuiz: false})}
+  stopQuiz = () => {this.setState({isQuiz: false, currentWordIndex: 0})}
 
   evaluateWord = (word) => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
-    if (word === currentWord){
+    if (compareWords(word, currentWord)){
       speak('Correct. Good job!')
       if (this.state.currentWordIndex >= this.state.wordList.length -1) {
         speak('Test complete')
-        this.setState({isQuiz: false})
+        this.stopQuiz()
       } else {
         const index = this.state.currentWordIndex + 1
         const newWord = this.state.wordList[index]
@@ -56,7 +56,8 @@ class App extends Component {
       }
       return true;
     } else {
-      speak(`Incorrect. Please spell, ${currentWord}`)
+      speak(`Incorrect. Please spell`)
+      speak(currentWord, 0.1)
       return false;
     }
   }
