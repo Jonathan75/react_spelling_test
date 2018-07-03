@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Enzyme from 'enzyme'
 import { shallow } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import Adapter from 'enzyme-adapter-react-15'
 import WordList from '../../src/components/WordList'
 
 Enzyme.configure({ adapter: new Adapter() })
