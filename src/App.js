@@ -33,6 +33,10 @@ class App extends Component {
     )
   }
 
+  quizEnabled = () => {
+    return this.state.wordList.length > 0
+  }
+
   startQuiz = () => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
     this.setState({isQuiz: true, currentWord: currentWord})
@@ -72,6 +76,7 @@ class App extends Component {
           wordList={this.state.wordList}
           addWord={this.addWord}
           startQuiz={this.startQuiz}
+          quizEnabled={this.quizEnabled()}
         />
 
     return (
