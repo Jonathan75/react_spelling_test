@@ -10,6 +10,7 @@ class QuizBuilder extends Component {
           <input type="text" id="word" />
           <button>Add word</button>
         </form>
+        bebugger
         <WordList wordList={this.props.wordList} />
         <button onClick={this.props.startQuiz} disabled={!this.props.quizEnabled}>Start Test</button>
         <button onClick={() => speak('Testing 1,2,3')}>Audio Test</button>
