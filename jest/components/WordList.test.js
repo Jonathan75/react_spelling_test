@@ -1,16 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Enzyme from 'enzyme'
-import { shallow } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-15'
+import Enzyme, { shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 import WordList from '../../src/components/WordList'
 
 Enzyme.configure({ adapter: new Adapter() })
+let wrapper
+const props = {words:['left', 'right', 'up', 'down']}
 
-it('renders without crashing', () => {
+it('can renders', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<WordList wordList={["bob"]}/>, div)
+  ReactDOM.render(<WordList words={["bob"]}/>, div)
 })
+
+it('can renders a list of words', () => {
+  wrapper = shallow(<WordList {...props}/>)
+  expect(wrapper).toBeDefined()
+  expect(wrapper.find("li")).toHaveLength(4)
+})
+
+
 
 
 // describe('<WordList />', () => {
