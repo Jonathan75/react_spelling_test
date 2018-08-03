@@ -2,19 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import WordList from '../../src/components/WordList'
+import WordList from '../../src/components/wordList'
 
 Enzyme.configure({ adapter: new Adapter() })
 let wrapper
 const removeWordMock = jest.fn()
 const props = {
-  words:['left', 'right', 'up', 'down'],
+  wordList:['left', 'right', 'up', 'down'],
   removeWord: removeWordMock
 }
 
 it('can renders', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<WordList words={["bob"]}/>, div)
+  ReactDOM.render(<WordList wordList={["bob"]}/>, div)
 })
 
 it('can renders a list of words', () => {
