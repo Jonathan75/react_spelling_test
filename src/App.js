@@ -36,6 +36,12 @@ class App extends Component {
   quizEnabled = () => {
     return this.state.wordList.length > 0
   }
+  removeWord = (word) => {
+    this.setState(
+      {wordList: this.state.wordList.ary.filter(w => w !== word)},
+      () => {this.storeWordList(this.state.wordList)}
+    )
+  }
 
   startQuiz = () => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
