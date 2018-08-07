@@ -6,7 +6,8 @@ import App from '../src/App'
 
 Enzyme.configure({ adapter: new Adapter() })
 let wrapper
-// const props = {words:['left', 'right', 'up', 'down']}
+const props = {wordList:['left', 'right', 'up', 'down']}
+const setItemMock = jest.fn()
 
 const localStorageMock = {
   getItem: jest.fn(),
@@ -15,22 +16,14 @@ const localStorageMock = {
 }
 global.localStorage = localStorageMock
 
-
 it('renders without crashing', () => {
   const div = document.createElement('div')
   ReactDOM.render(<App />, div)
 })
 
-// describe('When 4 words', () => {
-//   // it('has 4 words', () => {
-//   //   const div = document.createElement('div')
-//   //   ReactDOM.render(<App />, div)
-//   // })
-//
-//   it('can renders a list of words', () => {
-//     wrapper = shallow(<App {...props}/>)
-//     expect(wrapper).toBeDefined()
-//     expect(wrapper.find("li")).toHaveLength(4)
-//   })
-//
-// })
+it('call the removeWord', () => {
+  wrapper = shallow(<App {...props}/>)
+  expect(wrapper).toBeDefined()
+  wrapper.removeWord('left')
+  expect(setItemMock).toHaveBeenCalledWith({wordList:['right', 'up', 'down']})
+})

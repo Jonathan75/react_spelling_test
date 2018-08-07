@@ -33,6 +33,14 @@ class App extends Component {
     )
   }
 
+  removeWord = (word) => {
+    e.preventDefault()
+    this.setState(
+      {wordList: this.state.wordList.ary.filter(w => w !== word)},
+      () => {this.storeWordList(this.state.wordList)}
+    )
+  }
+
   startQuiz = () => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
     this.setState({isQuiz: true, currentWord: currentWord})
