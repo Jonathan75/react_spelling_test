@@ -34,9 +34,9 @@ class App extends Component {
   }
 
   removeWord = (word) => {
-    e.preventDefault()
+    //e.preventDefault()
     this.setState(
-      {wordList: this.state.wordList.ary.filter(w => w !== word)},
+      { wordList: this.state.wordList.filter(w => w !== word) },
       () => {this.storeWordList(this.state.wordList)}
     )
   }
