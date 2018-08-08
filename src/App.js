@@ -83,6 +83,7 @@ class App extends Component {
           addWord={this.addWord}
           startQuiz={this.startQuiz}
           quizEnabled={this.quizEnabled()}
+          removeWord={this.removeWord}
         />
 
     return (

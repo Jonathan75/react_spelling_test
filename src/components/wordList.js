@@ -6,8 +6,8 @@ class WordList extends Component {
     const wordList = this.props.wordList
     const listItems = wordList.map((word, i) =>
       <li key={`${i}-${word}`}>
-        {word}
-        <button className='delete-word' onClick={()=> this.props.removeWord(word)}>Delete</button>
+        {word} &nbsp;
+        <i className='delete-word fa fa-trash' onClick={()=> this.props.removeWord(word)} />
       </li>
     )
 
