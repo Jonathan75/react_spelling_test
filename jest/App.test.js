@@ -19,16 +19,24 @@ const localStorageMock = {
 }
 global.localStorage = localStorageMock
 
-it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<App />, div)
+beforeEach(() => {
+  wrapper = shallow(<App {...props}/>)
 })
 
 it('call the removeWord', () => {
-  wrapper = shallow(<App {...props}/>)
   expect(wrapper.state().wordList).toEqual(wordListArray)
   expect(wrapper).toBeDefined()
   wrapper.instance().removeWord('left')
   expect(wrapper.instance().state.wordList).toEqual(['right', 'up', 'down'])
   expect(setItemMock).toHaveBeenCalledWith('wordList', "[\"right\",\"up\",\"down\"]")
 })
+
+it('renders quizbuilder', () => {
+  const quizBuilder = wrapper.find('QuizBuilder')
+  expect(quizBuilder).toBeDefined()
+  expect(quizBuilder.props().wordList).toBeDefined()
+  expect(quizBuilder.props().addWord).toBeDefined()
+  expect(quizBuilder.props().startQuiz).toBeDefined()
+  expect(quizBuilder.props().removeWord).toBeDefined()
+})
+

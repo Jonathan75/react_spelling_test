@@ -34,7 +34,6 @@ class App extends Component {
   }
 
   removeWord = (word) => {
-    //e.preventDefault()
     this.setState(
       { wordList: this.state.wordList.filter(w => w !== word) },
       () => {this.storeWordList(this.state.wordList)}
@@ -80,6 +79,7 @@ class App extends Component {
           wordList={this.state.wordList}
           addWord={this.addWord}
           startQuiz={this.startQuiz}
+          removeWord={this.removeWord}
         />
 
     return (
