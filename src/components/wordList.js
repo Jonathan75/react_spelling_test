@@ -5,7 +5,7 @@ class WordList extends Component {
   render() {
     const wordList = this.props.wordList
     const listItems = wordList.map((word, i) =>
-      <li key={`${i}-${word}`}>
+      <li className='word' key={`${i}-${word}`}>
         {word} &nbsp;
         <i className='delete-word fa fa-trash' onClick={()=> this.props.removeWord(word)} />
       </li>
