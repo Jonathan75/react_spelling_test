@@ -6,9 +6,11 @@
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "^1.1.4"
+    "font-awesome": "^4.7.0",
+    "react": "^16.2.0",
+    "react-dom": "^16",
+    "react-scripts": "^1.1.4",
+    "react-test-renderer": "^16.4.1"
   },
   "devDependencies": {
     "babel-jest": "^23.0.1",

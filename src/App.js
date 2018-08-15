@@ -36,6 +36,12 @@ class App extends Component {
   quizEnabled = () => {
     return this.state.wordList.length > 0
   }
+  removeWord = (word) => {
+    this.setState(
+      { wordList: this.state.wordList.filter(w => w !== word) },
+      () => {this.storeWordList(this.state.wordList)}
+    )
+  }
 
   startQuiz = () => {
     const currentWord = this.state.wordList[this.state.currentWordIndex]
@@ -77,6 +83,7 @@ class App extends Component {
           addWord={this.addWord}
           startQuiz={this.startQuiz}
           quizEnabled={this.quizEnabled()}
+          removeWord={this.removeWord}
         />
 
     return (
