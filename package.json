@@ -32,7 +32,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d master -d build"
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "roots": [
