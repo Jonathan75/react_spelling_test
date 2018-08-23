@@ -75,6 +75,7 @@ class App extends Component {
   render() {
     const body = this.state.isQuiz ?
         <Quiz
+          currentWord={this.currentWord}
           stopQuiz={this.stopQuiz}
           evaluateWord = {this.evaluateWord}
         /> :
