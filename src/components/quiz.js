@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 
 class Quiz extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   //this.handleClick = this.handleClick.bind(this);
-  //   this.state = {peek: false}
-  // }
-
   state = {peek: false}
 
   componentDidMount(){
@@ -15,7 +9,6 @@ class Quiz extends Component {
 
   peekShow = (e) => {
     e.preventDefault()
-    // debugger
     console.log(this.state)
     this.setState({peek: true})
   }
@@ -29,6 +22,7 @@ class Quiz extends Component {
   }
 
   render(){
+    let word = this.props.currentWord
     return(
       <div>
         <form onSubmit={this.onSubmitWord}>
@@ -36,15 +30,12 @@ class Quiz extends Component {
             <input type='text' id="word" ref={(input) => { this.nameInput = input }}></input>
           </div>
           <div>
-            <button onClick={this.peekShow}>Peek</button>
-            <div style={this.state.peek ? {} : { display: 'none' }}>{this.props.currentWord}</div>
-            <div>peek is</div>
-            <div>{`${this.state.peek} and ${this.props.currentWord}`}</div>
-          </div>
-          <div>
             <button>Continue</button>
           </div>
-
+          <div>
+            <button onClick={this.peekShow}>Peek</button>
+            <div style={this.state.peek ? {} : { display: 'none' }}>{word}</div>
+          </div>
         </form>
         <button onClick={this.props.stopQuiz}>Exit Test</button>
       </div>
