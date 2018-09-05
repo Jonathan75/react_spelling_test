@@ -34,7 +34,7 @@ class Quiz extends Component {
           </div>
           <div>
             <button onClick={this.peekShow}>Peek</button>
-            <div style={this.state.peek ? {} : { display: 'none' }}>{word}</div>
+            <div className={this.state.peek ? 'anne fadeOut' : ''}>{word}</div>
           </div>
         </form>
         <button onClick={this.props.stopQuiz}>Exit Test</button>
