@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
 class Quiz extends Component {
-  state = {peek: false}
+  state = {
+    peekCounter: 0
+  }
 
   componentDidMount(){
      this.nameInput.focus()
@@ -9,8 +11,7 @@ class Quiz extends Component {
 
   peekShow = (e) => {
     e.preventDefault()
-    console.log(this.state)
-    this.setState({peek: true})
+    this.setState({peekCounter: this.state.peekCounter+1})
   }
 
   onSubmitWord = (e) => {
@@ -22,7 +23,8 @@ class Quiz extends Component {
   }
 
   render(){
-    let word = this.props.currentWord
+    const word = this.props.currentWord
+    const peekItem = this.state.peekCounter > 0 ? <div className='fadeOut' key={this.state.peekCounter}>{word}</div> : null
     return(
       <div>
         <form onSubmit={this.onSubmitWord}>
@@ -34,7 +36,7 @@ class Quiz extends Component {
           </div>
           <div>
             <button onClick={this.peekShow}>Peek</button>
-            <div className={this.state.peek ? 'anne fadeOut' : ''}>{word}</div>
+            {peekItem}
           </div>
         </form>
         <button onClick={this.props.stopQuiz}>Exit Test</button>
