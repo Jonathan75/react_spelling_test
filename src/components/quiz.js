@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 
 class Quiz extends Component {
+  constructor() {
+    super()
+    this.wordInputBound = this.wordInputDraw.bind(this)
+  }
   state = {
     peekCounter: 0
   }
 
   componentDidMount(){
-     this.nameInput.focus()
+     this.wordInputBound()
   }
 
   peekShow = (e) => {
@@ -22,6 +26,12 @@ class Quiz extends Component {
     }
   }
 
+  wordInputDraw = (input) => {
+    // this.wordInput = input
+    // input.focus()
+  }
+
+
   render(){
     const word = this.props.currentWord
     const peekItem = this.state.peekCounter > 0 ? <div className='fadeOut' key={this.state.peekCounter}>{word}</div> : null
@@ -29,7 +39,8 @@ class Quiz extends Component {
       <div>
         <form onSubmit={this.onSubmitWord}>
           <div>
-            <input type='text' id="word" ref={(input) => { this.nameInput = input }}></input>
+            <input type='text' id="word" ref={this.wordInputBound}></input>
+            // <input type='text' id="word" ref={(input) => { this.nameInput = input }}></input>
           </div>
           <div>
             <button>Continue</button>

@@ -4,7 +4,6 @@ import Quiz from './components/quiz'
 import speak from './lib/speak'
 import { compareWords } from './helper'
 
-
 class App extends Component {
   constructor(props) {
     super(props)
