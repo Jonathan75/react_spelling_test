@@ -20,6 +20,14 @@ it('can renders', () => {
   expect(wrapper).toBeDefined()
 })
 
+describe('peek button', () => {
+  it('shows the current text', () => {
+    wrapper = shallow(<Quiz {...props}/>)
+    const peekButton = wrapper.find('.jest-peek-button')
+    peekButton.simulate('click', {preventDefault: jest.fn()})
+    expect(wrapper.text()).toContain(props.currentWord)
+  })
+})
 
 // it('has a word list with the removeWord callback', () => {
 //   wrapper = shallow(<QuizBuilder {...props}/>)

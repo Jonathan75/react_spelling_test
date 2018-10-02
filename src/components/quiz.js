@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 class Quiz extends Component {
   state = {
-    peekCounter: 0,
-    currentWord: this.props.currentWord
+    peekCounter: 0
   }
 
   peekShow = (e) => {
@@ -15,11 +14,12 @@ class Quiz extends Component {
     e.preventDefault()
     if (this.props.evaluateWord(e.target.elements["word"].value)){
       e.target.elements["word"].value = ''
+      this.setState({peekCounter: 0 })
     }
   }
 
   render(){
-    const peekItem = this.state.peekCounter > 0 ? <div className='fadeOut' key={this.state.peekCounter}>{this.state.currentWord}</div> : null
+    const peekItem = this.state.peekCounter > 0 ? <div className='fadeOut' key={this.state.peekCounter}>{this.props.currentWord}</div> : null
     return(
       <div>
         <form onSubmit={this.onSubmitWord}>
