@@ -40,7 +40,6 @@ class Quiz extends Component {
         <form onSubmit={this.onSubmitWord}>
           <div>
             <input type='text' id="word" ref={this.wordInputBound}></input>
-            // <input type='text' id="word" ref={(input) => { this.nameInput = input }}></input>
           </div>
           <div>
             <button>Continue</button>
