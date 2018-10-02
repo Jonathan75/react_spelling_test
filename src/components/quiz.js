@@ -1,16 +1,9 @@
 import React, { Component } from 'react'
 
 class Quiz extends Component {
-  constructor() {
-    super()
-    this.wordInputBound = this.wordInputDraw.bind(this)
-  }
   state = {
-    peekCounter: 0
-  }
-
-  componentDidMount(){
-     this.wordInputBound()
+    peekCounter: 0,
+    currentWord: this.props.currentWord
   }
 
   peekShow = (e) => {
@@ -20,32 +13,24 @@ class Quiz extends Component {
 
   onSubmitWord = (e) => {
     e.preventDefault()
-    this.nameInput.focus()
     if (this.props.evaluateWord(e.target.elements["word"].value)){
       e.target.elements["word"].value = ''
     }
   }
 
-  wordInputDraw = (input) => {
-    // this.wordInput = input
-    // input.focus()
-  }
-
-
   render(){
-    const word = this.props.currentWord
-    const peekItem = this.state.peekCounter > 0 ? <div className='fadeOut' key={this.state.peekCounter}>{word}</div> : null
+    const peekItem = this.state.peekCounter > 0 ? <div className='fadeOut' key={this.state.peekCounter}>{this.state.currentWord}</div> : null
     return(
       <div>
         <form onSubmit={this.onSubmitWord}>
           <div>
-            <input type='text' id="word" ref={this.wordInputBound}></input>
+            <input type='text' id="word" autoFocus></input>
           </div>
           <div>
             <button>Continue</button>
           </div>
           <div>
-            <button onClick={this.peekShow}>Peek</button>
+            <button className='jest-peek-button' onClick={this.peekShow}>Peek</button>
             {peekItem}
           </div>
         </form>
