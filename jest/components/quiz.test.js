@@ -29,10 +29,50 @@ describe('peek button', () => {
   })
 })
 
-// it('has a word list with the removeWord callback', () => {
-//   wrapper = shallow(<QuizBuilder {...props}/>)
-//   const wordList = wrapper.find(WordList)
-//   expect(wordList).toBeDefined()
-//   wordList.prop('removeWord')('foo')
-//   expect(removeWordMock).toHaveBeenCalledWith('foo')
-// })
+describe('on a quiz word', () => {
+  it('the peek text is not initially shown', () => {
+    wrapper = shallow(<Quiz {...props}/>)
+    expect(wrapper.text()).not.toContain(props.currentWord)
+  })
+})
+
+describe('on choosing a correct spelling', () => {
+  it('the word is removed', () => {
+    wrapper = shallow(<Quiz {...props}/>)
+    const word_input = wrapper.find('.jest-word-input')
+    word_input.simulate('change', { target: { value: 'incorrect' } } )
+    console.log("word_input: ", word_input.text() )
+    const continueButton = wrapper.find('.jest-continue-button')
+    continueButton.simulate('click', { preventDefault: jest.fn() } )
+    console.log("word_input: ", word_input.text() )
+    expect(word_input.value).toBe(undefined)
+  })
+  
+  it('evaluateWord is called', () => {
+    wrapper = shallow(<Quiz {...props}/>)
+    const continueButton = wrapper.find('.jest-continue-button')
+    continueButton.simulate('click', { preventDefault: jest.fn() } )
+    const word_input = wrapper.find('.jest-word-input')
+    //expect(wrapper.text()).not.toContain(props.currentWord)
+  })
+})
+
+describe('on choosing an incorrect spelling', () => {
+  it('the word is not removed', () => {
+    wrapper = shallow(<Quiz {...props}/>)
+    const continueButton = wrapper.find('.jest-continue-button')
+    continueButton.simulate('click', { preventDefault: jest.fn() } )
+    const word_input = wrapper.find('.jest-word-input')
+    console.log("word_input: ", word_input.text() )
+    expect(word_input.value).not.toBe('')
+  })
+
+  it('evaluateWord is called', () => {
+    wrapper = shallow(<Quiz {...props}/>)
+    const continueButton = wrapper.find('.jest-continue-button')
+    continueButton.simulate('click', { preventDefault: jest.fn() } )
+    const word_input = wrapper.find('.jest-word-input')
+    //expect(wrapper.text()).not.toContain(props.currentWord)
+  })
+})
+

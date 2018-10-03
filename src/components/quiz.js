@@ -24,17 +24,17 @@ class Quiz extends Component {
       <div>
         <form onSubmit={this.onSubmitWord}>
           <div>
-            <input type='text' id="word" autoFocus></input>
+            <input className='jest-word-input' type='text' id="word" autoFocus></input>
           </div>
           <div>
-            <button>Continue</button>
+            <button className='jest-continue-button'>Continue</button>
           </div>
           <div>
             <button className='jest-peek-button' onClick={this.peekShow}>Peek</button>
             {peekItem}
           </div>
         </form>
-        <button onClick={this.props.stopQuiz}>Exit Test</button>
+        <button className='jest-exit-button' onClick={this.props.stopQuiz}>Exit Test</button>
       </div>
     )
   }
