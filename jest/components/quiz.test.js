@@ -15,7 +15,7 @@ const props = {
   evaluateWord: jest.fn()
 }
 
-it('can renders', () => {
+it('renders', () => {
   wrapper = shallow(<Quiz {...props}/>)
   expect(wrapper).toBeDefined()
 })
@@ -51,8 +51,13 @@ describe('on choosing a correct spelling', () => {
   it('evaluateWord is called', () => {
     wrapper = shallow(<Quiz {...props}/>)
     const continueButton = wrapper.find('.jest-continue-button')
-    continueButton.simulate('click', { preventDefault: jest.fn() } )
+    const currentWord = props.currentWord
     const word_input = wrapper.find('.jest-word-input')
+    word_input.simulate('change', { target: { value: 'new word' } } )
+    console.log("current word: ", word_input.text())
+    continueButton.simulate('click', { preventDefault: jest.fn() } )
+    //debugger
+    expect(word_input.text()).toEqual('')
     //expect(wrapper.text()).not.toContain(props.currentWord)
   })
 })
