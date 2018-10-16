@@ -6,13 +6,11 @@ import Quiz from '../../src/components/quiz'
 
 Enzyme.configure({ adapter: new Adapter() })
 let wrapper
-// const removeWordMock = jest.fn()
-// const addWordMock = jest.fn()
-// const startQuizMock = jest.fn()
+const evaluateWord = jest.fn(()=> true)
 const props = {
   currentWord:'bob',
   stopQuiz: jest.fn(),
-  evaluateWord: jest.fn()
+  evaluateWord: evaluateWord
 }
 
 it('renders', () => {
@@ -47,18 +45,20 @@ describe('on choosing a correct spelling', () => {
     console.log("word_input: ", word_input.text() )
     expect(word_input.value).toBe(undefined)
   })
-  
+
   it('evaluateWord is called', () => {
     wrapper = shallow(<Quiz {...props}/>)
     const continueButton = wrapper.find('.jest-continue-button')
     const currentWord = props.currentWord
+    // debugger
     const word_input = wrapper.find('.jest-word-input')
-    word_input.simulate('change', { target: { value: 'new word' } } )
+    word_input.simulate('change', { target: { value: 'new word' } })
     console.log("current word: ", word_input.text())
+
+    // expect(word_input.text()).toEqual('new word')
     continueButton.simulate('click', { preventDefault: jest.fn() } )
-    //debugger
     expect(word_input.text()).toEqual('')
-    //expect(wrapper.text()).not.toContain(props.currentWord)
+    expect(wrapper.text()).not.toContain(props.currentWord)
   })
 })
 
@@ -77,7 +77,6 @@ describe('on choosing an incorrect spelling', () => {
     const continueButton = wrapper.find('.jest-continue-button')
     continueButton.simulate('click', { preventDefault: jest.fn() } )
     const word_input = wrapper.find('.jest-word-input')
-    //expect(wrapper.text()).not.toContain(props.currentWord)
+    expect(wrapper.text()).not.toContain(props.currentWord)
   })
 })
-
