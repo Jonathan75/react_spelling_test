@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import Quiz from '../../src/components/quiz'
 
@@ -36,7 +36,7 @@ describe('on a quiz word', () => {
 
 describe('on choosing a correct spelling', () => {
   it('the word is removed', () => {
-    wrapper = shallow(<Quiz {...props}/>)
+    wrapper = mount(<Quiz {...props}/>)
     const word_input = wrapper.find('.jest-word-input')
     word_input.simulate('change', { target: { value: 'incorrect' } } )
     console.log("word_input: ", word_input.text() )
@@ -47,17 +47,22 @@ describe('on choosing a correct spelling', () => {
   })
 
   it('evaluateWord is called', () => {
-    wrapper = shallow(<Quiz {...props}/>)
+    wrapper = mount(<Quiz {...props}/>)
     const continueButton = wrapper.find('.jest-continue-button')
     const currentWord = props.currentWord
     // debugger
-    const word_input = wrapper.find('.jest-word-input')
-    word_input.simulate('change', { target: { value: 'new word' } })
-    console.log("current word: ", word_input.text())
+    let word_input = wrapper.find('.jest-word-input')
+    expect(word_input).toHaveLength(1)
+    //word_input.simulate('change', { target: { value: 'new word' } })
+    word_input.simulate('change', { value: 'new word' })
+    // word_input.node.value = 'new word'
+
+    // word_input = wrapper.find('.jest-word-input')
+    console.log("word input : ", wrapper.find('.jest-word-input').prop().value))
 
     // expect(word_input.text()).toEqual('new word')
     continueButton.simulate('click', { preventDefault: jest.fn() } )
-    expect(word_input.text()).toEqual('')
+    expect(wrapper.find('.jest-word-input').prop('value')).toEqual('')
     expect(wrapper.text()).not.toContain(props.currentWord)
   })
 })
