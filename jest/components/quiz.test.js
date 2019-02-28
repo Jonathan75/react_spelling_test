@@ -53,16 +53,16 @@ describe('on choosing a correct spelling', () => {
     // debugger
     let word_input = wrapper.find('.jest-word-input')
     expect(word_input).toHaveLength(1)
-    //word_input.simulate('change', { target: { value: 'new word' } })
-    word_input.simulate('change', { value: 'new word' })
+    word_input.simulate('change', { target: { value: 'new word' } })
+    // word_input.simulate('change', { value: 'new word' })
     // word_input.node.value = 'new word'
 
     // word_input = wrapper.find('.jest-word-input')
-    console.log("word input : ", wrapper.find('.jest-word-input').prop().value))
+    console.log("word input : ", wrapper.find('.jest-word-input').first().props().value)
 
     // expect(word_input.text()).toEqual('new word')
     continueButton.simulate('click', { preventDefault: jest.fn() } )
-    expect(wrapper.find('.jest-word-input').prop('value')).toEqual('')
+    expect(wrapper.find('.jest-word-input').get(0).value).toEqual('')
     expect(wrapper.text()).not.toContain(props.currentWord)
   })
 })

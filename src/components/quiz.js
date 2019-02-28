@@ -24,7 +24,7 @@ class Quiz extends Component {
       <div>
         <form onSubmit={this.onSubmitWord}>
           <div>
-            <input className='jest-word-input' type='text' id="word" autoFocus></input>
+            <input className='jest-word-input' aria-label="word-input" type='text' id="word" autoFocus></input>
           </div>
           <div>
             <button className='jest-continue-button'>Continue</button>
