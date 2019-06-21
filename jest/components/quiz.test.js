@@ -39,31 +39,9 @@ describe('on choosing a correct spelling', () => {
     wrapper = mount(<Quiz {...props}/>)
     const word_input = wrapper.find('.jest-word-input')
     word_input.simulate('change', { target: { value: 'incorrect' } } )
-    console.log("word_input: ", word_input.text() )
     const continueButton = wrapper.find('.jest-continue-button')
     continueButton.simulate('click', { preventDefault: jest.fn() } )
-    console.log("word_input: ", word_input.text() )
     expect(word_input.value).toBe(undefined)
-  })
-
-  it('evaluateWord is called', () => {
-    wrapper = mount(<Quiz {...props}/>)
-    const continueButton = wrapper.find('.jest-continue-button')
-    const currentWord = props.currentWord
-    // debugger
-    let word_input = wrapper.find('.jest-word-input')
-    expect(word_input).toHaveLength(1)
-    word_input.simulate('change', { target: { value: 'new word' } })
-    // word_input.simulate('change', { value: 'new word' })
-    // word_input.node.value = 'new word'
-
-    // word_input = wrapper.find('.jest-word-input')
-    console.log("word input : ", wrapper.find('.jest-word-input').first().props().value)
-
-    // expect(word_input.text()).toEqual('new word')
-    continueButton.simulate('click', { preventDefault: jest.fn() } )
-    expect(wrapper.find('.jest-word-input').get(0).value).toEqual('')
-    expect(wrapper.text()).not.toContain(props.currentWord)
   })
 })
 
@@ -73,7 +51,6 @@ describe('on choosing an incorrect spelling', () => {
     const continueButton = wrapper.find('.jest-continue-button')
     continueButton.simulate('click', { preventDefault: jest.fn() } )
     const word_input = wrapper.find('.jest-word-input')
-    console.log("word_input: ", word_input.text() )
     expect(word_input.value).not.toBe('')
   })
 

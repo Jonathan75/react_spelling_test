@@ -5,8 +5,6 @@ import Quiz from '../../src/components/quiz'
 
 afterEach(cleanup)
 const evaluateWordMock = jest.fn(()=> true)
-
-const evaluateWord = jest.fn(()=> true)
 const props = {
   currentWord:'bob',
   stopQuiz: jest.fn(),
@@ -17,8 +15,9 @@ it('Continue with a word that is spelled correctly', () => {
   const {getByText, getByTestId, getByLabelText, container, asFragment} = render(<Quiz {...props} />)
   const wordInput = getByLabelText('word-input')
   fireEvent.change(wordInput, { target: { value: 'bob' } })
+  expect(wordInput.value).toBe('bob')
   fireEvent.click(getByText(/Continue/i))
   expect(evaluateWordMock).toHaveBeenCalledTimes(1)
   expect(evaluateWordMock).toHaveBeenCalledWith('bob')
-  expect(wordInput.value).toBe('')
+  expect(wordInput).toHaveTextContent('')
 })
