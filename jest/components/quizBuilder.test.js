@@ -26,6 +26,7 @@ it('can renders', () => {
 it('has a word list with the removeWord callback', () => {
   wrapper = shallow(<QuizBuilder {...props}/>)
   const wordList = wrapper.find(WordList)
+
   expect(wordList).toBeDefined()
   wordList.prop('removeWord')('foo')
   expect(removeWordMock).toHaveBeenCalledWith('foo')

@@ -4,7 +4,6 @@ import Quiz from './components/quiz'
 import speak from './lib/speak'
 import { compareWords } from './helper'
 
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -75,6 +74,7 @@ class App extends Component {
   render() {
     const body = this.state.isQuiz ?
         <Quiz
+          currentWord={this.state.currentWord}
           stopQuiz={this.stopQuiz}
           evaluateWord = {this.evaluateWord}
         /> :

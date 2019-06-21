@@ -2,22 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Enzyme, { shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import 'jest-localstorage-mock'  //https://github.com/clarkbw/jest-localstorage-mock
 import App from '../src/App'
 
 Enzyme.configure({ adapter: new Adapter() })
 let wrapper
 const wordListArray = ['left', 'right', 'up', 'down']
 const props = { wordList: wordListArray }
-const setItemMock = jest.fn()
-const getItemMock = jest.fn()
-getItemMock.mockReturnValue(JSON.stringify(wordListArray))
-
-const localStorageMock = {
-  getItem: getItemMock,
-  setItem: setItemMock,
-  clear: jest.fn()
-}
-global.localStorage = localStorageMock
+localStorage.setItem("wordList", JSON.stringify(wordListArray))
 
 beforeEach(() => {
   wrapper = shallow(<App {...props}/>)
@@ -28,7 +20,7 @@ it('call the removeWord', () => {
   expect(wrapper).toBeDefined()
   wrapper.instance().removeWord('left')
   expect(wrapper.instance().state.wordList).toEqual(['right', 'up', 'down'])
-  expect(setItemMock).toHaveBeenCalledWith('wordList', "[\"right\",\"up\",\"down\"]")
+  expect(localStorage.setItem).toHaveBeenLastCalledWith('wordList', "[\"right\",\"up\",\"down\"]")
 })
 
 it('renders quizbuilder', () => {
@@ -39,4 +31,3 @@ it('renders quizbuilder', () => {
   expect(quizBuilder.props().startQuiz).toBeDefined()
   expect(quizBuilder.props().removeWord).toBeDefined()
 })
-
